@@ -4,10 +4,10 @@ import Link from "next/link"
 import { useState, useEffect } from "react"
 
 const navItems = [
-  { label: 'Features' },
-  { label: 'Integrations' },
-  { label: 'Why switch to TofuLab?' },
-  { label: 'Pricing' },
+  { label: 'Features', href: '#' },
+  { label: 'Integrations', href: '#' },
+  { label: 'Why switch to TofuLab?', href: '#' },
+  { label: 'Pricing', href: '/pricing' },
 ]
 
 function TofuLabLogo() {
@@ -129,7 +129,7 @@ export default function Page() {
             {navItems.map((item) => (
               <Link
                 key={item.label}
-                href="#"
+                href={item.href}
                 className="text-sm font-medium text-white/90 hover:text-white transition-colors"
               >
                 {item.label}
@@ -138,7 +138,7 @@ export default function Page() {
           </nav>
           <div className="flex items-center gap-4">
             <Link
-              href="#"
+              href="/pricing"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-[#1a1a1a] bg-[#5cb85c] hover:bg-[#4c9a4c] transition-colors"
             >
               Start a FREE trial
@@ -158,7 +158,7 @@ export default function Page() {
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-[#2d2d2d] bg-[#1a1a1a] px-6 py-4 flex flex-col gap-3">
             {navItems.map((item) => (
-              <Link key={item.label} href="#" className="text-sm font-medium text-white/90 hover:text-white">
+              <Link key={item.label} href={item.href} className="text-sm font-medium text-white/90 hover:text-white">
                 {item.label}
               </Link>
             ))}
