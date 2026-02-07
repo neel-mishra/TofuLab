@@ -9,11 +9,11 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "TofuLab — Your AI agent for supercharged marketing teams",
+  title: "TofuLab - Marketing AI Agent",
   description: "Mia Agent works alongside your marketers to plan, analyze, optimize, and report across Meta, Google, TikTok, and Amazon with deep API integration and end-to-end actions.",
   icons: {
-    icon: ["/favicon.ico"],
-    apple: ["/favicon.ico"],
+    icon: ["/images/tofulab-logo.png"],
+    apple: ["/images/tofulab-logo.png"],
   },
   manifest: "/manifest.json",
   viewport: {
