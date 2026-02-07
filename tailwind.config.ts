@@ -36,6 +36,14 @@ const config: Config = {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		colors: {
+  			tofulab: {
+  				bg: '#1a1a1a',
+  				green: '#5cb85c',
+  				'green-hover': '#4c9a4c',
+  				muted: '#9ca3af',
+  				border: '#2d2d2d',
+  				input: '#2d2d2d',
+  			},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

@@ -1,55 +1,25 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-const playfair = Playfair_Display({ 
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  weight: ['400', '500'],
-  style: ['normal'],
-})
-
-const inter = Inter({ 
-  subsets: ['latin'],
-  display: 'swap',
+  weight: ['400', '500', '600', '700'],
 })
 
 export const metadata: Metadata = {
-  title: "vibedev.ai",
-  description: "Experience the new way of coding with vibedev.ai. Transform your development workflow and vibe with your code like never before.",
+  title: "TofuLab — Your AI agent for supercharged marketing teams",
+  description: "Mia Agent works alongside your marketers to plan, analyze, optimize, and report across Meta, Google, TikTok, and Amazon with deep API integration and end-to-end actions.",
   icons: {
-    icon: [
-      {
-        url: "/images/idevibelogo.png",
-        type: "image/png",
-        sizes: "32x32"
-      },
-      {
-        url: "/images/idevibelogo.png",
-        type: "image/png",
-        sizes: "16x16"
-      }
-    ],
-    apple: [
-      {
-        url: "/images/idevibelogo.png",
-        type: "image/png",
-        sizes: "180x180"
-      }
-    ],
-    shortcut: [{ url: "/images/idevibelogo.png" }],
-    other: [
-      {
-        rel: "icon",
-        url: "/images/idevibelogo.png",
-      },
-    ],
+    icon: ["/favicon.ico"],
+    apple: ["/favicon.ico"],
   },
   manifest: "/manifest.json",
   viewport: {
     width: 'device-width',
-    initialScale: 1
-  }
+    initialScale: 1,
+  },
 };
 
 export default function RootLayout({
@@ -59,13 +29,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <head>
-        <link rel="icon" type="image/png" sizes="32x32" href="/images/idevibelogo.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/images/idevibelogo.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/images/idevibelogo.png" />
-        <link rel="manifest" href="/manifest.json" />
-      </head>
-      <body className={`${inter.className} bg-black bg-dotted-grid`}>{children}</body>
+      <body className={`${inter.className} bg-[#1a1a1a] text-white antialiased`}>{children}</body>
     </html>
   );
 }
