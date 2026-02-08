@@ -66,8 +66,17 @@ export default function Page() {
   const [heroError, setHeroError] = useState<string | null>(null)
   const [sliderIndex, setSliderIndex] = useState(0)
   const [sliderTransition, setSliderTransition] = useState(true)
+  const [sliderStepPx, setSliderStepPx] = useState(176)
   const customers = partnerLogos
   const duplicatedCustomers = [...customers, ...customers]
+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 640px)')
+    const setStep = () => setSliderStepPx(mq.matches ? 176 : 156)
+    setStep()
+    mq.addEventListener('change', setStep)
+    return () => mq.removeEventListener('change', setStep)
+  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -114,7 +123,7 @@ export default function Page() {
   return (
     <div className="min-h-screen bg-[#1a1a1a] text-white font-sans antialiased" style={{ ['--header-bg' as string]: '#1a1a1a' }}>
       {/* Announcement bar */}
-      <div className="bg-[#252525] border-b border-[#2d2d2d] py-2 text-center text-sm">
+      <div className="bg-[#252525] border-b border-[#2d2d2d] py-2 px-4 sm:px-6 text-center text-xs sm:text-sm">
         <span className="text-white/80">Sign up for a free trial and get 30% off for 6 months.</span>{' '}
         <Link href="#" className="text-[#5cb85c] font-medium underline hover:text-[#4c9a4c]">
           LEARN MORE
@@ -123,7 +132,7 @@ export default function Page() {
 
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-[#2d2d2d]/80 backdrop-blur-sm [background:var(--header-bg)]">
-        <div className="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between [background:var(--header-bg)]">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2 [background:var(--header-bg)]">
           <TofuLabLogo />
           <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
@@ -139,13 +148,13 @@ export default function Page() {
           <div className="flex items-center gap-4">
             <Link
               href="/pricing"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-[#1a1a1a] bg-[#5cb85c] hover:bg-[#4c9a4c] transition-colors"
+              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-lg text-sm font-semibold text-[#1a1a1a] bg-[#5cb85c] hover:bg-[#4c9a4c] transition-colors min-h-[44px] items-center shrink-0"
             >
               Start a FREE trial
             </Link>
             <button
               type="button"
-              className="md:hidden p-2 text-white/90 hover:text-white"
+              className="md:hidden p-3 -m-1 text-white/90 hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center"
               onClick={() => setMobileMenuOpen((o) => !o)}
               aria-label="Toggle menu"
             >
@@ -156,9 +165,9 @@ export default function Page() {
           </div>
         </div>
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-[#2d2d2d] bg-[#1a1a1a] px-6 py-4 flex flex-col gap-3">
+          <div className="md:hidden border-t border-[#2d2d2d] bg-[#1a1a1a] px-4 py-4 flex flex-col gap-1">
             {navItems.map((item) => (
-              <Link key={item.label} href={item.href} className="text-sm font-medium text-white/90 hover:text-white">
+              <Link key={item.label} href={item.href} className="text-sm font-medium text-white/90 hover:text-white py-3 min-h-[44px] flex items-center" onClick={() => setMobileMenuOpen(false)}>
                 {item.label}
               </Link>
             ))}
@@ -168,10 +177,10 @@ export default function Page() {
 
       <main>
         {/* Hero - text (narrow) + image right, matching Hostfully-style layout */}
-        <section className="max-w-[1200px] mx-auto px-6 py-16 md:py-24">
+        <section className="max-w-[1200px] mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-24">
           <div className="flex flex-col md:flex-row md:items-center gap-8 md:gap-12">
-            <div className="max-w-[520px] flex-shrink-0 text-center mx-auto md:mx-auto">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white leading-tight mb-6">
+            <div className="max-w-[520px] flex-shrink-0 text-center mx-auto w-full min-w-0">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white leading-tight mb-4 sm:mb-6">
                 AI agent for supercharged marketing teams
               </h1>
               <p className="text-white/80 text-base mb-8">
@@ -197,7 +206,7 @@ export default function Page() {
                   {heroStatus === 'loading' ? 'Sending…' : heroStatus === 'success' ? 'Check your email' : 'Start a FREE trial'}
                 </button>
               </div>
-              <p className="mt-4 text-xs text-white/60 text-center whitespace-nowrap">
+              <p className="mt-4 text-xs sm:text-sm text-white/60 text-center max-w-[320px] sm:max-w-none mx-auto">
                 For growth teams, marketers, and agencies who want an AI teammate, not another dashboard.
               </p>
               {heroStatus === 'error' && heroError && (
@@ -208,7 +217,7 @@ export default function Page() {
               )}
             </div>
             <div className="w-full min-w-0 flex-1 flex justify-center md:justify-end">
-              <div className="w-full max-w-[520px] aspect-video rounded-xl bg-[#252525] border border-[#3d3d3d] overflow-hidden flex-shrink-0">
+              <div className="w-full max-w-[320px] sm:max-w-[420px] md:max-w-[520px] aspect-video rounded-xl bg-[#252525] border border-[#3d3d3d] overflow-hidden flex-shrink-0">
                 <img
                   src="/images/hero-product-ui.png"
                   alt="TofuLab product interface"
@@ -220,22 +229,22 @@ export default function Page() {
         </section>
 
         {/* Integration / partner logos */}
-        <section className="border-t border-[#2d2d2d] pt-0 pb-12 flex flex-col items-stretch">
-          <div className="max-w-[1200px] mx-auto px-6 w-full flex flex-col items-start">
-            <h2 className="text-2xl md:text-3xl font-bold text-white text-center mb-8 self-center">Over 200 teams have switched from spreadsheets and legacy tools to TofuLab</h2>
-            <div className="w-full max-w-[min(100%,720px)] mx-auto overflow-hidden mb-8" aria-label="Customer logos">
+        <section className="border-t border-[#2d2d2d] pt-0 pb-10 sm:pb-12 flex flex-col items-stretch">
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 w-full flex flex-col items-start">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white text-center mb-6 sm:mb-8 self-center px-2">Over 200 teams have switched from spreadsheets and legacy tools to TofuLab</h2>
+            <div className="w-full max-w-[min(100%,720px)] mx-auto overflow-hidden mb-6 sm:mb-8" aria-label="Customer logos">
               <div
                 className="flex gap-4"
                 style={{
                   width: 'max-content',
-                  transform: `translateX(-${sliderIndex * 176}px)`,
+                  transform: `translateX(-${sliderIndex * sliderStepPx}px)`,
                   transition: sliderTransition ? 'transform 0.6s ease-out' : 'none',
                 }}
               >
                 {duplicatedCustomers.map((partner, index) => (
                   <div
                     key={`${partner.name}-${index}`}
-                    className="h-14 w-[160px] flex-shrink-0 rounded-lg bg-[#252525] border border-[#3d3d3d] flex items-center justify-center gap-2 px-3 text-sm font-medium text-white/60"
+                    className="h-12 sm:h-14 w-[140px] sm:w-[160px] flex-shrink-0 rounded-lg bg-[#252525] border border-[#3d3d3d] flex items-center justify-center gap-2 px-2 sm:px-3 text-xs sm:text-sm font-medium text-white/60"
                   >
                     <img
                       src={partner.logoSrc ?? `https://logo.clearbit.com/${partner.domain}`}
@@ -249,11 +258,11 @@ export default function Page() {
                 ))}
               </div>
             </div>
-            <div className="flex flex-wrap justify-center gap-3 self-center">
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 self-center px-2">
               {badges.map((badge) => (
                 <span
                   key={badge}
-                  className="px-4 py-2 rounded-full bg-[#252525] border border-[#3d3d3d] text-xs font-medium text-white/70"
+                  className="px-3 sm:px-4 py-2 rounded-full bg-[#252525] border border-[#3d3d3d] text-xs font-medium text-white/70"
                 >
                   {badge}
                 </span>
@@ -263,12 +272,12 @@ export default function Page() {
         </section>
 
         {/* Comparison / rating section */}
-        <section className="border-t border-[#2d2d2d] py-16">
-          <div className="max-w-[1200px] mx-auto px-6 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-12">
+        <section className="border-t border-[#2d2d2d] py-12 sm:py-16">
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-8 sm:mb-12">
               TofuLab has been the highest-rated AI marketing agent on G2 since 2025.
             </h2>
-            <div className="grid md:grid-cols-2 gap-6 max-w-[700px] mx-auto">
+            <div className="grid md:grid-cols-2 gap-4 sm:gap-6 max-w-[700px] mx-auto">
               <div className="p-6 rounded-xl bg-[#252525] border border-[#3d3d3d] text-left">
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-10 h-10 rounded-lg bg-white/10" />
@@ -302,18 +311,18 @@ export default function Page() {
         </section>
 
         {/* Migration stat */}
-        <section className="border-t border-[#2d2d2d] py-12">
-          <div className="max-w-[1200px] mx-auto px-6 text-center">
-            <p className="text-xl font-medium text-white/90">
+        <section className="border-t border-[#2d2d2d] py-10 sm:py-12">
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
+            <p className="text-base sm:text-xl font-medium text-white/90">
               On average, 4–7 marketing teams switch from legacy tools to TofuLab each month.
             </p>
           </div>
         </section>
 
         {/* Testimonials - alternating strips, two columns */}
-        <section className="bg-[#252525] py-16">
-          <div className="max-w-[1200px] mx-auto px-6">
-            <div className="grid md:grid-cols-2 gap-8">
+        <section className="bg-[#252525] py-12 sm:py-16">
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+            <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
               {reviews.map((r, i) => (
                 <div
                   key={i}
@@ -339,9 +348,9 @@ export default function Page() {
         </section>
 
         {/* Featured testimonial - centered */}
-        <section className="py-16 border-t border-[#2d2d2d]">
-          <div className="max-w-[800px] mx-auto px-6 text-center">
-            <p className="text-2xl md:text-3xl font-medium text-white leading-relaxed mb-8 relative">
+        <section className="py-12 sm:py-16 border-t border-[#2d2d2d]">
+          <div className="max-w-[800px] mx-auto px-4 sm:px-6 text-center">
+            <p className="text-xl sm:text-2xl md:text-3xl font-medium text-white leading-relaxed mb-6 sm:mb-8 relative px-2">
               <span className="text-[#5cb85c]/40 text-5xl font-serif leading-none absolute -top-2 left-0">&quot;</span>
               Mia doesn&apos;t just summarize data. It recommends budget shifts and creates campaigns. We went from weekly manual reports to daily automated analyses and improved ROAS by 33%.<span className="text-[#5cb85c]/40 text-5xl font-serif leading-none align-top">&quot;</span>
             </p>
@@ -358,12 +367,12 @@ export default function Page() {
         </section>
 
         {/* Customer logos / cards */}
-        <section className="bg-[#252525] py-16 border-t border-[#2d2d2d]">
-          <div className="max-w-[1200px] mx-auto px-6">
-            <h2 className="text-2xl font-bold text-white text-center mb-12">
+        <section className="bg-[#252525] py-12 sm:py-16 border-t border-[#2d2d2d]">
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-white text-center mb-8 sm:mb-12">
               Over 200 teams have switched from spreadsheets and legacy tools to TofuLab.
             </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {[1, 2, 3, 4].map((i) => (
                 <div
                   key={i}
@@ -381,9 +390,9 @@ export default function Page() {
         </section>
 
         {/* Key features - 3 horizontal cards */}
-        <section className="py-16 border-t border-[#2d2d2d] bg-[#252525]">
-          <div className="max-w-[1200px] mx-auto px-6">
-            <div className="grid md:grid-cols-3 gap-8">
+        <section className="py-12 sm:py-16 border-t border-[#2d2d2d] bg-[#252525]">
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+            <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
               {featureCards.map((card, i) => (
                 <div key={i} className="flex gap-4 p-6 rounded-xl bg-[#1a1a1a] border border-[#2d2d2d]">
                   <div className="w-12 h-12 rounded-lg bg-[#5cb85c]/20 flex items-center justify-center flex-shrink-0 text-[#5cb85c]">
@@ -414,27 +423,27 @@ export default function Page() {
         </section>
 
         {/* Onboarding / migration CTA */}
-        <section className="py-20 border-t border-[#2d2d2d]">
-          <div className="max-w-[1200px] mx-auto px-6 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+        <section className="py-14 sm:py-20 border-t border-[#2d2d2d]">
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4">
               Switching to TofuLab takes minutes.
             </h2>
-            <p className="text-lg text-white/80 mb-12 max-w-[600px] mx-auto">
+            <p className="text-base sm:text-lg text-white/80 mb-8 sm:mb-12 max-w-[600px] mx-auto px-1">
               We connect your ad accounts, migrate your workflows, and train Mia on your brand. Stop overpaying for old tools and get an AI teammate that executes.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
-              <span className="px-6 py-3 rounded-lg border-2 border-[#5cb85c] text-white font-medium">
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 mb-8 sm:mb-12">
+              <span className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg border-2 border-[#5cb85c] text-white font-medium text-sm sm:text-base">
                 Step 1: Get in touch
               </span>
-              <span className="text-white/50">→</span>
-              <span className="px-6 py-3 rounded-lg text-white/80 font-medium">Step 2: Free migration</span>
-              <span className="text-white/50">→</span>
-              <span className="px-6 py-3 rounded-lg text-white/80 font-medium">Step 3: Launch</span>
+              <span className="text-white/50 text-sm sm:text-base">→</span>
+              <span className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg text-white/80 font-medium text-sm sm:text-base">Step 2: Free migration</span>
+              <span className="text-white/50 text-sm sm:text-base">→</span>
+              <span className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg text-white/80 font-medium text-sm sm:text-base">Step 3: Launch</span>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
-                href="#"
-                className="inline-flex px-6 py-3 rounded-lg font-semibold text-[#1a1a1a] bg-[#5cb85c] hover:bg-[#4c9a4c] transition-colors"
+                href="/pricing"
+                className="inline-flex px-6 py-3 rounded-lg font-semibold text-[#1a1a1a] bg-[#5cb85c] hover:bg-[#4c9a4c] transition-colors min-h-[48px] items-center justify-center"
               >
                 Start a FREE trial
               </Link>

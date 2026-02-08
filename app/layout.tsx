@@ -29,7 +29,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.className} bg-[#1a1a1a] text-white antialiased`}>{children}</body>
+      <body className={`${inter.className} bg-[#1a1a1a] text-white antialiased min-h-screen overflow-x-hidden`}>{children}</body>
     </html>
   );
 }

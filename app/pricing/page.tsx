@@ -84,7 +84,7 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen bg-[#1a1a1a] text-white font-sans antialiased" style={{ ['--header-bg' as string]: '#1a1a1a' }}>
       {/* Announcement bar */}
-      <div className="bg-[#252525] border-b border-[#2d2d2d] py-2 text-center text-sm">
+      <div className="bg-[#252525] border-b border-[#2d2d2d] py-2 px-4 sm:px-6 text-center text-xs sm:text-sm">
         <span className="text-white/80">Sign up for a free trial and get 30% off for 6 months.</span>{' '}
         <Link href="/" className="text-[#5cb85c] font-medium underline hover:text-[#4c9a4c]">
           LEARN MORE
@@ -93,7 +93,7 @@ export default function PricingPage() {
 
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-[#2d2d2d]/80 backdrop-blur-sm [background:var(--header-bg)]">
-        <div className="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between [background:var(--header-bg)]">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2 [background:var(--header-bg)]">
           <TofuLabLogo />
           <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
@@ -109,13 +109,13 @@ export default function PricingPage() {
           <div className="flex items-center gap-4">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-[#1a1a1a] bg-[#5cb85c] hover:bg-[#4c9a4c] transition-colors"
+              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-lg text-sm font-semibold text-[#1a1a1a] bg-[#5cb85c] hover:bg-[#4c9a4c] transition-colors min-h-[44px] items-center"
             >
               Start a FREE trial
             </Link>
             <button
               type="button"
-              className="md:hidden p-2 text-white/90 hover:text-white"
+              className="md:hidden p-3 -m-1 text-white/90 hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center"
               onClick={() => setMobileMenuOpen((o) => !o)}
               aria-label="Toggle menu"
             >
@@ -126,9 +126,9 @@ export default function PricingPage() {
           </div>
         </div>
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-[#2d2d2d] bg-[#1a1a1a] px-6 py-4 flex flex-col gap-3">
+          <div className="md:hidden border-t border-[#2d2d2d] bg-[#1a1a1a] px-4 py-4 flex flex-col gap-1">
             {navItems.map((item) => (
-              <Link key={item.label} href={item.href} className="text-sm font-medium text-white/90 hover:text-white" onClick={() => setMobileMenuOpen(false)}>
+              <Link key={item.label} href={item.href} className="text-sm font-medium text-white/90 hover:text-white py-3 min-h-[44px] flex items-center" onClick={() => setMobileMenuOpen(false)}>
                 {item.label}
               </Link>
             ))}
@@ -137,27 +137,27 @@ export default function PricingPage() {
       </header>
 
       <main>
-        <section className="max-w-[1200px] mx-auto px-6 py-16 md:py-24">
-          <div className="text-center mb-16">
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">Simple, transparent pricing</h1>
-            <p className="text-white/80 text-lg max-w-[560px] mx-auto">
+        <section className="max-w-[1200px] mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-24">
+          <div className="text-center mb-10 sm:mb-16">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4">Simple, transparent pricing</h1>
+            <p className="text-white/80 text-base sm:text-lg max-w-[560px] mx-auto px-2">
               Start with a free trial. No credit card required. Switch plans or cancel anytime.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {plans.map((plan) => (
               <div
                 key={plan.name}
-                className={`rounded-2xl border p-6 md:p-8 flex flex-col ${
+                className={`rounded-2xl border p-5 sm:p-6 md:p-8 flex flex-col ${
                   plan.highlighted
                     ? 'border-[#5cb85c] bg-[#252525] ring-2 ring-[#5cb85c]/30'
                     : 'border-[#2d2d2d] bg-[#252525]/80'
                 }`}
               >
-                <h2 className="text-xl font-semibold text-white mb-2">{plan.name}</h2>
-                <div className="flex items-baseline gap-1 mb-4">
-                  <span className="text-3xl md:text-4xl font-bold text-white">{plan.price}</span>
+                <h2 className="text-lg sm:text-xl font-semibold text-white mb-2">{plan.name}</h2>
+                <div className="flex items-baseline gap-1 mb-3 sm:mb-4">
+                  <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">{plan.price}</span>
                   <span className="text-white/60">{plan.period}</span>
                 </div>
                 <p className="text-white/70 text-sm mb-6">{plan.description}</p>
@@ -171,7 +171,7 @@ export default function PricingPage() {
                 </ul>
                 <Link
                   href={plan.href}
-                  className={`block w-full text-center py-3 px-4 rounded-lg font-semibold text-sm transition-colors ${
+                  className={`block w-full text-center py-3 px-4 rounded-lg font-semibold text-sm transition-colors min-h-[48px] flex items-center justify-center ${
                     plan.highlighted
                       ? 'bg-[#5cb85c] text-[#1a1a1a] hover:bg-[#4c9a4c]'
                       : 'bg-[#252525] border border-[#3d3d3d] text-white hover:bg-[#2d2d2d]'
@@ -183,7 +183,7 @@ export default function PricingPage() {
             ))}
           </div>
 
-          <p className="text-center text-white/50 text-sm mt-12">
+          <p className="text-center text-white/50 text-xs sm:text-sm mt-8 sm:mt-12 px-4">
             All plans include a 14-day free trial. Need a custom plan? <Link href="#" className="text-[#5cb85c] hover:underline">Contact us</Link>.
           </p>
         </section>
